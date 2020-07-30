@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
 
 const db = require("../lib/db.js");
 //const authHelper = require("./auth.js");
@@ -8,7 +9,10 @@ const middleware = require("../middleware/middleware.js");
 
 const fetch = require("node-fetch");
 
+var SECRETKEY = "cc6b9744e135bc240ed7bb10c6095ee8"; // md5 hash of Leo Smith
+
 router.post("/login", (req, res, next) => {
+  // query to get username
   db.query(
     `SELECT * FROM users WHERE username = ${db.escape(req.body.username)};`,
     (err, result) => {
@@ -29,20 +33,20 @@ router.post("/login", (req, res, next) => {
         req.body.password,
         result[0]["password"],
         (bErr, bResult) => {
-          // wrong password
+          // error from bcrypt
           if (bErr) {
             throw bErr;
             return res.status(401).send({
               msg: "Username or password is incorrect!"
             });
           }
+          // Correct password
           if (bResult) {
             const token = jwt.sign(
               {
                 username: result[0].username,
-                userId: result[0].userId
               },
-              "SECRETKEY",
+              SECRETKEY,
               {
                 expiresIn: "7d"
               }
@@ -53,6 +57,7 @@ router.post("/login", (req, res, next) => {
               user: result[0]
             });
           }
+          // no result so incorrect password
           return res.status(401).send({
             msg: "Username or password is incorrect!"
           });
@@ -63,11 +68,13 @@ router.post("/login", (req, res, next) => {
 });
 
 router.post("/register", middleware.validateRegister, (req, res, next) => {
+  // query to see if use exists
   db.query(
     `SELECT * FROM users WHERE LOWER(username) = LOWER(${db.escape(
       req.body.username
     )});`,
     (err, result) => {
+      // result.length should be null if there is no username match
       if (result.length) {
         return res.status(409).send({
           msg: "This username is already in use!"
@@ -76,6 +83,7 @@ router.post("/register", middleware.validateRegister, (req, res, next) => {
         // username is available
         bcrypt.hash(req.body.password, 10, (err, hash) => {
           if (err) {
+            // bcrypt didnt hash the password
             return res.status(500).send({
               msg: err
             });

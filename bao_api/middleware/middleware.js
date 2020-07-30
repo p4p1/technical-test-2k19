@@ -4,6 +4,7 @@ var SECRETKEY = "cc6b9744e135bc240ed7bb10c6095ee8"; // md5 hash of Leo Smith
 module.exports = {
   isLoggedIn: (req, res, next) => {
     try {
+      // extract the authorization after Bearer
       const token = req.headers.authorization.split(" ")[1];
       const decoded = jwt.verify(token, SECRETKEY);
 
@@ -17,6 +18,7 @@ module.exports = {
     }
   },
   validateRegister: (req, res, next) => {
+    // create a valid user
     if (!req.body.username || req.body.username.length < 3) {
       console.log(req.body);
       return res.status(400).send({

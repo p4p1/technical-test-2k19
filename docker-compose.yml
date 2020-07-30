@@ -13,16 +13,17 @@ services:
     networks:
       - bao-net
     volumes:
+      - ./db/schema.sql:/docker-entrypoint-initdb.d/schema.sql
       - db-data:/var/lib/mysql
 
   back:
     build: ./bao_api
     ports:
       - "8080:8080"
-    depends_on:
-      - mysql
     networks:
       - bao-net
+    depends_on:
+      - mysql
 
 volumes:
   db-data:
