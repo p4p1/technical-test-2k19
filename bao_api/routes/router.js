@@ -9,7 +9,8 @@ const middleware = require("../middleware/middleware.js");
 
 const fetch = require("node-fetch");
 
-var SECRETKEY = "cc6b9744e135bc240ed7bb10c6095ee8"; // md5 hash of Leo Smith
+const SECRETKEY = "cc6b9744e135bc240ed7bb10c6095ee8"; // md5 hash of Leo Smith
+const apikey = "4RQ9IGzbHH04YHhJO6LjMFvK9f33bSIDtHAPnyYOLMwJ";
 
 router.post("/login", (req, res, next) => {
   // query to get username
@@ -110,6 +111,18 @@ router.post("/register", middleware.validateRegister, (req, res, next) => {
       }
     }
   );
+});
+
+router.post("/boa", middleware.isLoggedIn, (req, res) => {
+  if (req.body.turns > 0 && req.body.text.length) {
+    return (res.status(201).send({
+      data: "ok"
+    }));
+  } else {
+    return (res.status(200).send({
+      data: "Error: number of tries has to be supperior to 0 and text should be sent"
+    }));
+  }
 });
 
 module.exports = router;
