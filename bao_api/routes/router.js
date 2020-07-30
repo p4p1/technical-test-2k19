@@ -3,14 +3,15 @@ const router = express.Router();
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
+const boa = require("../lib/boa.js");
 const db = require("../lib/db.js");
-//const authHelper = require("./auth.js");
 const middleware = require("../middleware/middleware.js");
 
-const fetch = require("node-fetch");
+const path = require('path')
+require('dotenv').config({ path: path.resolve(__dirname, '/.env') })
 
-const SECRETKEY = "cc6b9744e135bc240ed7bb10c6095ee8"; // md5 hash of Leo Smith
-const apikey = "4RQ9IGzbHH04YHhJO6LjMFvK9f33bSIDtHAPnyYOLMwJ";
+const SECRETKEY = process.env.SECRETKEY; // md5 hash of Leo Smith
+const apikey = process.env.IBM_APIKEY; // IBM SECRET KEY FOR THE API
 
 router.post("/login", (req, res, next) => {
   // query to get username
@@ -114,15 +115,21 @@ router.post("/register", middleware.validateRegister, (req, res, next) => {
 });
 
 router.post("/boa", middleware.isLoggedIn, (req, res) => {
-  if (req.body.turns > 0 && req.body.text.length) {
-    return (res.status(201).send({
-      data: "ok"
-    }));
-  } else {
+  /*     language:              french              portugueses  *
+   *     chinese              english                  arabic    */
+  var languages_spoken = [ 'fr-FR_ReneeVoice', 'pt-BR_IsabelaVoice',
+    'zh-CN_LiNaVoice', 'en-GB_CharlotteV3Voice', 'ar-AR_OmarVoice' ]
+  var listening_language = [ 'fr-FR_BroadbandModel', 'pt-BR_BroadbandModel',
+    'zh-CN_BroadbandModel', 'en-GB_BroadbandModel', 'ar-AR_BroadbandModel' ]
+
+  if (req.body.turns <= 0 || !req.body.text.length) { // If no turns provided OR no text
     return (res.status(200).send({
       data: "Error: number of tries has to be supperior to 0 and text should be sent"
     }));
   }
+  return (res.status(201).send({
+    data: boa.speechText()
+  }));
 });
 
 module.exports = router;

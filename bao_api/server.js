@@ -4,6 +4,9 @@ const router = require('./routes/router.js');
 const cors = require('cors');
 var app = express();
 
+const path = require('path')
+require('dotenv').config({ path: path.resolve(__dirname, '/.env') })
+
 var port = process.env.port || 8080;
 
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -18,5 +21,7 @@ app.listen(port, function() {
 
 app.get("/isup", function (request, response) {
   console.log("Hello World request received");
+  console.log(process.env.SECRETKEY);
+  console.log(process.env.IBM_APIKEY);
   response.json({ "data": "Hello World"});
 });

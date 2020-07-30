@@ -1,5 +1,18 @@
 # Le jeu du bouche à oreille
 
+## Setup
+
+Pour setup le projet il faut ce munir de la clef API IBM et de choisir une clef
+de cryptage pour les json web tokens. Avec c'est deux clef il faut creer un .env
+a la racine de bao_api/
+```
+$ pwd
+/bao_api/
+$ cat .env
+SECRETKEY={la clef de cryptage jwt}
+IBM_APIKEY={la clef de l'api IBM}
+```
+
 ## Sujet
 
 Votre mission, si vous l'acceptez, sera de se marrer un bon coup en manipulant les API [text to speech](https://www.ibm.com/watson/services/text-to-speech/) et [speech to text](https://www.ibm.com/watson/services/speech-to-text/) d'IBM.

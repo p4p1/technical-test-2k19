@@ -3,6 +3,7 @@ package-lock.json
 
 bao_api/node_modules/
 bao_api/package-lock.json
+bao_api/.env
 
 bao_app/node_modules/
 bao_app/package-lock.json

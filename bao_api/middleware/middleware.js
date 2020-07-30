@@ -1,5 +1,9 @@
 const jwt = require("jsonwebtoken");
-var SECRETKEY = "cc6b9744e135bc240ed7bb10c6095ee8"; // md5 hash of Leo Smith
+
+const path = require('path')
+require('dotenv').config({ path: path.resolve(__dirname, '/.env') })
+
+const SECRETKEY = process.env.SECRETKEY; // md5 hash of Leo Smith
 
 module.exports = {
   isLoggedIn: (req, res, next) => {
@@ -20,7 +24,6 @@ module.exports = {
   validateRegister: (req, res, next) => {
     // create a valid user
     if (!req.body.username || req.body.username.length < 3) {
-      console.log(req.body);
       return res.status(400).send({
         msg: "Please enter a username with min. 3 chars"
       });
@@ -46,5 +49,3 @@ module.exports = {
     next();
   }
 };
-
-
