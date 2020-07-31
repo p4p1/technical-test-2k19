@@ -121,15 +121,38 @@ router.post("/boa", middleware.isLoggedIn, (async (req, res) => {
     'zh-CN_LiNaVoice', 'en-GB_CharlotteV3Voice', 'ar-AR_OmarVoice' ]
   var listening_language = [ 'fr-FR_BroadbandModel', 'pt-BR_BroadbandModel',
     'zh-CN_BroadbandModel', 'en-GB_BroadbandModel', 'ar-AR_BroadbandModel' ]
+  var points = [];
+  var result = 0;
+  var turns = [];
 
   if (req.body.turns <= 0 || !req.body.text.length) { // If no turns provided OR no text
     return (res.status(200).send({
       data: "Error: number of tries has to be supperior to 0 and text should be sent"
     }));
   }
-  var data = await boa.textSpeech(req.body.text, languages_spoken[0]);
+  // pick a random language
+  var pos = Math.floor(Math.random() * Math.floor(languages_spoken.length));
+  var data = await boa.textSpeech(req.body.text, languages_spoken[pos]);
+    turns.push(languages_spoken[pos]);
+
+  // loop through the number of turns
+  for (var i = 0; i < (req.body.turns - 1); i++) {
+    pos = Math.floor(Math.random() * Math.floor(languages_spoken.length));
+    data = await boa.speechText(listening_language[0]);
+    await boa.textSpeech(req.body.text, languages_spoken[pos]);
+    points.push(data.results[0].alternatives[0].confidence * 100);
+    turns.push(languages_spoken[pos]);
+  }
+  data = await boa.speechText(listening_language[0]);
+  turns.push(languages_spoken[0]);
+  points.push(data.results[0].alternatives[0].confidence * 100);
+  result = boa.algorithm(req.body.text,
+    data.results[0].alternatives[0].transcript, points);
+
   return (res.status(201).send({
-    data: data
+    text: data.results[0].alternatives[0].transcript,
+    result: result,
+    turns: turns
   }));
 }));
 
