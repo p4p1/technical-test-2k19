@@ -14,6 +14,8 @@ IBM_APIKEY={la clef de l'api IBM}
 FILE_NAME={chemin du fichier a telecharger par l'api IBM}.wav
 ```
 
+[API DOCUMENTATION](https://documenter.getpostman.com/view/10616927/T1Dv6ZYU?version=latest)
+
 ## Sujet
 
 Votre mission, si vous l'acceptez, sera de se marrer un bon coup en manipulant les API [text to speech](https://www.ibm.com/watson/services/text-to-speech/) et [speech to text](https://www.ibm.com/watson/services/speech-to-text/) d'IBM.
