@@ -114,7 +114,7 @@ router.post("/register", middleware.validateRegister, (req, res, next) => {
   );
 });
 
-router.post("/boa", middleware.isLoggedIn, (req, res) => {
+router.post("/boa", middleware.isLoggedIn, (async (req, res) => {
   /*     language:              french              portugueses  *
    *     chinese              english                  arabic    */
   var languages_spoken = [ 'fr-FR_ReneeVoice', 'pt-BR_IsabelaVoice',
@@ -127,9 +127,10 @@ router.post("/boa", middleware.isLoggedIn, (req, res) => {
       data: "Error: number of tries has to be supperior to 0 and text should be sent"
     }));
   }
+  var data = await boa.textSpeech(req.body.text, languages_spoken[0]);
   return (res.status(201).send({
-    data: boa.speechText()
+    data: data
   }));
-});
+}));
 
 module.exports = router;

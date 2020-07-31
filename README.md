@@ -11,6 +11,7 @@ $ pwd
 $ cat .env
 SECRETKEY={la clef de cryptage jwt}
 IBM_APIKEY={la clef de l'api IBM}
+FILE_NAME={chemin du fichier a telecharger par l'api IBM}.wav
 ```
 
 ## Sujet
