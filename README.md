@@ -30,10 +30,10 @@ J4 - Developpement du front-end
 
 
 ## Screenshot
-![Page de login]()
-![Page de register]()
-![Interface du jeux avant de joue]()
-![Interface du jeux apres avoir joue]()
+![Page de login](https://raw.githubusercontent.com/p4p1/technical-test-2k19/master/assets/login.jpg)
+![Page de register](https://raw.githubusercontent.com/p4p1/technical-test-2k19/master/assets/register.jpg)
+![Interface du jeux avant de joue](https://raw.githubusercontent.com/p4p1/technical-test-2k19/master/assets/boa_before.jpg)
+![Interface du jeux apres avoir joue](https://raw.githubusercontent.com/p4p1/technical-test-2k19/master/assets/boa_after.jpg)
 
 [API DOCUMENTATION](https://documenter.getpostman.com/view/10616927/T1Dv6ZYU?version=latest)
 
