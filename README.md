@@ -14,6 +14,27 @@ IBM_APIKEY={la clef de l'api IBM}
 FILE_NAME={chemin du fichier a telecharger par l'api IBM}.wav
 ```
 
+Pour l'application il faut modifier la variable 
+```javascript
+global.url
+```
+dans le fichier bao_app/App.js avec l'addresse IP du serveur pour que l'application
+ce connecte a la bonne API
+
+## Division du travail
+La division du travail est simple
+J1 - Docker, test de l'api IBM et creation de la structure du dossier
+J2 - Developpement de l'api avec login register connection a la bdd mysql
+J3 - Integration de l'api IBM et de l'algorithme dans l'api bouche a oreille
+J4 - Developpement du front-end
+
+
+## Screenshot
+![Page de login]()
+![Page de register]()
+![Interface du jeux avant de joue]()
+![Interface du jeux apres avoir joue]()
+
 [API DOCUMENTATION](https://documenter.getpostman.com/view/10616927/T1Dv6ZYU?version=latest)
 
 ## Sujet
