@@ -34,6 +34,7 @@ J4 - Developpement du front-end
 ![Page de register](https://raw.githubusercontent.com/p4p1/technical-test-2k19/master/assets/register.jpg)
 ![Interface du jeux avant de joue](https://raw.githubusercontent.com/p4p1/technical-test-2k19/master/assets/boa_before.jpg)
 ![Interface du jeux apres avoir joue](https://raw.githubusercontent.com/p4p1/technical-test-2k19/master/assets/boa_after.jpg)
+![app icon](https://raw.githubusercontent.com/p4p1/technical-test-2k19/master/bao_app/assets/icon.png)
 
 [API DOCUMENTATION](https://documenter.getpostman.com/view/10616927/T1Dv6ZYU?version=latest)
 
